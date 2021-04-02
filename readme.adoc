@@ -1,0 +1,4 @@
+= My simple template for console python app
+
+NOTE: to share forks on github with idea project settings
+      remove `/.idea/` from .gitignore in the root of project dir
