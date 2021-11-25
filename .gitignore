@@ -1,3 +1,7 @@
 /logs/
 /.idea/
+<<<<<<< HEAD
 /__pycache__/
+=======
+/venv/
+>>>>>>> 785eb9146db6ca582895a6522d1f9792fdea2e54
