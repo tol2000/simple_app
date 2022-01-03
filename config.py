@@ -1,17 +1,20 @@
 import logging
+import uuid
 from datetime import datetime
 from pathlib import Path
 
+LOG_FILE_EXTENSION = '.log'
 base_dir = Path(__file__).resolve().parent
+logs_subdir = 'logs'
+logs_dir = base_dir.joinpath(logs_subdir)
+log_filename = f'{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}___{uuid.uuid4()}{LOG_FILE_EXTENSION}'
+log_filename_with_path = logs_dir.joinpath(log_filename)
 
-log_filename = f'{datetime.today().strftime("%Y-%m-%d-%H-%M-%S")}.log'
-
+logs_dir.mkdir(exist_ok=True)
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="[LINE:%(lineno)-10d] # %(levelname)-8s [%(asctime)s] %(message)s",
-    filename=base_dir.joinpath('logs').joinpath(
-        log_filename
-    ),
+    filename=log_filename_with_path,
     filemode='w'
 )
 
@@ -23,10 +26,4 @@ if duplicate_logging_to_stderr:
     console = logging.StreamHandler()
     logging.getLogger('').addHandler(console)
 
-api_key = ''
-
-"""
-If true then:
-  Only 1 item from each cycle (one mark, from each mark - one model, etc...)  
-"""
-debug_preview = True
+debug = logging.getLogger('').isEnabledFor(logging.DEBUG)
